@@ -21,4 +21,36 @@
 /* Typography */
   --font-sans: "Inter", sans-serif;
 
+/* Display-LG */
+  --text-display-lg: 56px;
+  --text-display-lg--line-height: 56px;
+  --text-display-lg--letter-spacing: -2.8px;
+  --text-display-lg--font-weight: 700;
+
+
+    /* HEADLINE-LG */
+    --text-headline-lg: 32px;
+    --text-headline-lg--line-height: 40px;
+    --text-headline-lg--letter-spacing: 0px;
+    --text-headline-lg--font-weight: 600;
+
+    /* TITLE-MD */
+  --text-title-md: 18px;
+  --text-title-md--line-height: 27px;
+  --text-title-md--letter-spacing: 0px;
+  --text-title-md--font-weight: 500;
+
+    /* BODY-MD */
+    --text-body-md: 14px;
+    --text-body-md--line-height: 22.75px;
+    --text-body-md--letter-spacing: 0px;
+    --text-body-md--font-weight: 400;
+
+     /* LABEL-SM */
+  --text-label-sm: 11px;
+  --text-label-sm--line-height: 16.5px;
+  --text-label-sm--letter-spacing: 1.1px;
+  --text-label-sm--font-weight: 700;
+  
+  
 }
