@@ -7,7 +7,7 @@
   --color-surface-highest: #D7E2FF;
   --color-surface-low: #F1F3FF;
   --color-background: #F8F9FF;
-
+  --color-background-error: #FFDAD6;
   /* Slate Neutrals */
   --color-slate-dark: #1E2A3A;
   --color-slate-mid: #6B7A8D;
@@ -50,6 +50,7 @@
   --text-label-sm: 11px;
   --text-label-sm--line-height: 16.5px;
   --text-label-sm--letter-spacing: 1.1px;
+  /* --text-label-sm--font-style: "reg"; */
   --text-label-sm--font-weight: 700;
   
   /*Auth Card Title*/
@@ -58,5 +59,13 @@
   --text-title-card--letter-spacing: -0.75px;
   --text-title-card--font-weight: 600;
 
-  
+  /*Auth shadow card*/
+  --shadow-card: 0px 24px 48px 0px rgba(4, 27, 60, 0.06);
+
+    /*Auth card */
+
+--text-body-sm: 14px;
+--text-body-sm--line-height: 22.75px;
+--text-body-sm--letter-spacing: 0px;
+--text-body-sm--font-weight: 400;
 }
