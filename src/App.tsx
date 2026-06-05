@@ -1,15 +1,22 @@
 
+import { Navigate, Route, Routes } from 'react-router-dom';
 import './App.css';
+import SignUp from './pages/signup';
+import Login from './pages/Login';
 
 function App() {
 
 
   return (
-    <>
-      <section className='h-lvh bg-background'>
-        <h2 className='bg-primary-container text-surface-low font-sans'>try tailwind</h2>
-      </section>
-    </>
+    <Routes>
+      <Route path='/' element = {<Navigate to={'/sign-up'} replace />}/>
+
+      <Route path='/sign-up' element= {<SignUp/>}/>
+      <Route path='/login' element= {<Login/>}/>
+
+
+      <Route path='*' element = {<Navigate to={'/sign-up'} replace />}/>
+    </Routes>
   );
 }
 

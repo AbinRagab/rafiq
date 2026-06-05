@@ -52,5 +52,11 @@
   --text-label-sm--letter-spacing: 1.1px;
   --text-label-sm--font-weight: 700;
   
+  /*Auth Card Title*/
+  --text-title-card:  30px;
+  --text-title-card--line-height:36px ;
+  --text-title-card--letter-spacing: -0.75px;
+  --text-title-card--font-weight: 600;
+
   
 }
