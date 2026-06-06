@@ -39,7 +39,9 @@ export default function SignUp () {
     const onError = () => {
         toast.error('Please fix the form errors.');
       };
-    
+
+      
+      const password = watch('password', '')
     return (  <>
         <AuthLayout>
             {/* <p className="text-title-card text-slate-dark">Create your workspace</p> */}
@@ -55,11 +57,11 @@ export default function SignUp () {
                     
                     
                     <div className="px-12 mb-6 grid grid-cols-1 gap-4 md:grid-cols-2 mx-auto">
-                    <PasswordInput {...register('password')} error={errors.password?.message} label="Password" placeholder="Password"/>
+                    <PasswordInput  {...register('password')} error={errors.password?.message} label="Password" placeholder="Password"/>
                     <PasswordInput {...register("confirmPassword")} error={errors.confirmPassword?.message} label="Confirm password" placeholder="Repeat your password"/>
 
                 </div>
-                    <PasswordRequirements  />
+                    <PasswordRequirements  password = {password} />
                     
                     <AuthButton>
                         Sign Up
