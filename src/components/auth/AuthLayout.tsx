@@ -9,7 +9,8 @@ type AuthLayoutProps =
 
 export default function AuthLayout ({children}:AuthLayoutProps) {
     return ( 
-        <div className="h-screen bg-background w-full">
+        // h-screen
+        <div className=" bg-background w-full">
 
                 <header>
                     <div className="w-100 max-h-[80px] py-5 pl-8 flex items-center" >
@@ -19,8 +20,8 @@ export default function AuthLayout ({children}:AuthLayoutProps) {
                     <p className="font-sans mx-2 font-bold font leading-[28px] tracking-[-0.5px]">TASKLY</p>
                     </div>
                 </header>
-
-                <main className=" bg-white border-0 rounded w-1/2 mx-auto shadow p-5">
+{/* min-h-[calc(100vh-80)] */}
+                <main className="  flex items-center justify-center py-5 px-10">
 
                     {children}
                 </main>

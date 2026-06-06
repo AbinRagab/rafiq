@@ -9,10 +9,14 @@
   --color-background: #F8F9FF;
   --color-background-error: #FFDAD6;
   /* Slate Neutrals */
-  --color-slate-dark: #1E2A3A;
-  --color-slate-mid: #6B7A8D;
-  --color-slate-light: #C8D0DC;
+  --color-slate-dark: #041B3C;
+  --color-slate-mid: #4F5F7B;
+  --color-slate-light: #C3C6D6;
 
+
+  /*button gradiant*/
+  --color-button-dark: #003D9B;
+  --color-button-light:#0052CC;
   /* Semantic */
   --color-success: #4ADE80;
   --color-error: #DC2626;
@@ -39,6 +43,28 @@
   --text-title-md--line-height: 27px;
   --text-title-md--letter-spacing: 0px;
   --text-title-md--font-weight: 500;
+
+      /* TITLE-SM */
+      --text-title-sm: 11px;
+      --text-title-sm--line-height: 16.5px;
+      --text-title-sm--letter-spacing: 0.55px;
+      --text-title-sm--font-weight: 700;
+    
+      
+      /* TITLE-button */
+      --text-button-sm: 16px;
+      --text-button-sm--line-height: 24px;
+      --text-button-sm--letter-spacing: 0px;
+      --text-button-sm--font-weight: 600;
+    
+      /* TITLE-xSM */
+      --text-title-xsm: 11px;
+      --text-title-xsm--line-height: 16.5px;
+      --text-title-xsm--letter-spacing: 0px;
+      --text-title-xsm--font-weight: 400;
+    
+      
+
 
     /* BODY-MD */
     --text-body-md: 14px;
