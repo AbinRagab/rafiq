@@ -13,6 +13,7 @@ function App() {
 
       <Route path='/sign-up' element= {<SignUp/>}/>
       <Route path='/login' element= {<Login/>}/>
+      <Route path='/project' element= {<Login/>}/>
 
 
       <Route path='*' element = {<Navigate to={'/sign-up'} replace />}/>

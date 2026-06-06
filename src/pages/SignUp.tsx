@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import AuthButton from "../components/auth/AuthButton";
 import AuthLayout from "../components/auth/AuthLayout";
 import InputField from "../components/auth/InputField";
@@ -8,8 +8,7 @@ import {useForm} from "react-hook-form"
 import { zodResolver } from '@hookform/resolvers/zod';
 import { signUpSchema, type signUpFormData, } from "../schemas/SignUpSchema";
 import { toast } from 'sonner';
-
-// type registerFormData = {
+import { useNavigate } from 'react-router-dom';// type registerFormData = {
 //     name: 'string';
 //     email: 'string';
 //     jobTitle?: 'string';
@@ -17,8 +16,8 @@ import { toast } from 'sonner';
 //     comfirmPassword: 'string';
 
 // };
-
 export default function SignUp () {
+    const navigate = useNavigate()
     const {
         register,
         handleSubmit,
@@ -30,15 +29,51 @@ export default function SignUp () {
 
     
     
-    const  onSubmit = (data:signUpFormData)=>{
+    const  onSubmit = async (data:signUpFormData)=>{
+
+        try {
+            const response = await fetch(`${import.meta.env.VITE_SUPABASE_URL}/auth/v1/signup`,{
+                method: 'POST',
+                headers:{
+                    'Content-Type': 'application/json',
+                    apikey: import.meta.env.VITE_SUPABASE_API_KEY,
+                },
+                body: JSON.stringify({
+                    email: data.email,
+                    password: data.password,
+                    data: {
+                        name: data.name,
+                        job_title: data.jobTitle,
+
+                    }
+                })
+
+                
+
+            }) 
+            if(response.ok === true){
+                toast.success('Account created successfully!');
+                navigate('/project');
+            }
+
+            if(response.ok === false){
+            toast.error('Error in Sign Up');
+
+            }
+            console.log(response);
+            
+        } catch (error) {
+            toast.error(error);
+            console.log(error);
+            
+        }
         console.log(data);
-        toast.success('Account created successfully!');
 
     }
 
-    const onError = () => {
-        toast.error('Please fix the form errors.');
-      };
+    // const onError = () => {
+    //     toast.error('Please fix the form errors.');
+    //   };
 
       
       const password = watch('password', '')
@@ -49,7 +84,7 @@ export default function SignUp () {
                 <h2 className="text-title-card text-slate-dark">Create your workspace</h2>
                 <p className="text-body-sm mt-2 text-slate-mid">Join the editorial approach to task management.</p>
             
-                <form className="mt-8 w-full" onSubmit={handleSubmit(onSubmit,onError)}>
+                <form className="mt-8 w-full" onSubmit={handleSubmit(onSubmit)}>
                     
                     <InputField {...register('name')} error={errors.name?.message} label="Name" placeholder="Enter your full name" details="3-50 characters, letters only."/>               
                     <InputField {...register('email')} error= {errors.email?.message}label="Email"  placeholder="yourname@company.com"/>               
