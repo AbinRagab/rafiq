@@ -3,11 +3,13 @@ import { useState, type InputHTMLAttributes } from 'react';
 type PasswordInputProps = {
   label: string;
   error?: string;
+  details?:string;
 } & Omit<InputHTMLAttributes<HTMLInputElement>, 'type'>;
 
 export default function PasswordInput({
   label,
   error,
+  details,
   className = '',
   ...props
 }: PasswordInputProps) {
@@ -44,7 +46,16 @@ export default function PasswordInput({
 </svg>
         </button> : ' '}
         
+       
       </div>
-    </div>
+
+      <p
+        className={`
+          mt-1 text-title-xsm
+          ${hasError ? 'text-error' : 'text-slate-light'}
+        `}
+      >
+        {hasError ? error : details}
+      </p>    </div>
   );
 }

@@ -5,15 +5,18 @@ import InputField from "../components/auth/InputField";
 import PasswordRequirements from "../components/auth/PasswordRequirements";
 import PasswordInput from './../components/auth/PasswordInput';
 import {useForm} from "react-hook-form"
+import { zodResolver } from '@hookform/resolvers/zod';
+import { signUpSchema, type signUpFormData, } from "../schemas/SignUpSchema";
+import { toast } from 'sonner';
 
-type registerFormData = {
-    name: 'string';
-    email: 'string';
-    jobTitle?: 'string';
-    password: 'string';
-    comfirmPassword: 'string';
+// type registerFormData = {
+//     name: 'string';
+//     email: 'string';
+//     jobTitle?: 'string';
+//     password: 'string';
+//     comfirmPassword: 'string';
 
-};
+// };
 
 export default function SignUp () {
     const {
@@ -21,14 +24,21 @@ export default function SignUp () {
         handleSubmit,
         watch,
         formState: {errors},
-    } = useForm<registerFormData>();
+    } = useForm<signUpFormData>({
+        resolver: zodResolver(signUpSchema),
+    });
+
     
     
-    
-    const  onSubmit = (data:registerFormData)=>{
+    const  onSubmit = (data:signUpFormData)=>{
         console.log(data);
-        
+        toast.success('Account created successfully!');
+
     }
+
+    const onError = () => {
+        toast.error('Please fix the form errors.');
+      };
     
     return (  <>
         <AuthLayout>
@@ -37,16 +47,16 @@ export default function SignUp () {
                 <h2 className="text-title-card text-slate-dark">Create your workspace</h2>
                 <p className="text-body-sm mt-2 text-slate-mid">Join the editorial approach to task management.</p>
             
-                <form className="mt-8 w-full" onSubmit={handleSubmit(onSubmit)}>
+                <form className="mt-8 w-full" onSubmit={handleSubmit(onSubmit,onError)}>
                     
-                    <InputField {...register('name')} label="Name" placeholder="Enter your full name" details="3-50 characters, letters only."/>               
-                    <InputField {...register('email')}label="Email"  placeholder="yourname@company.com"/>               
-                    <InputField {...register('jobTitle')} label="Job Title (Optional)"  placeholder="e.g. Project Manager"/>               
+                    <InputField {...register('name')} error={errors.name?.message} label="Name" placeholder="Enter your full name" details="3-50 characters, letters only."/>               
+                    <InputField {...register('email')} error= {errors.email?.message}label="Email"  placeholder="yourname@company.com"/>               
+                    <InputField {...register('jobTitle')} error={errors.jobTitle?.message} label="Job Title (Optional)"  placeholder="e.g. Project Manager"/>               
                     
                     
                     <div className="px-12 mb-6 grid grid-cols-1 gap-4 md:grid-cols-2 mx-auto">
-                    <PasswordInput {...register('password')} label="Password" placeholder="Password"/>
-                    <PasswordInput {...register('comfirmPassword')} label="Confirm password" placeholder="Repeat your password"/>
+                    <PasswordInput {...register('password')} error={errors.password?.message} label="Password" placeholder="Password"/>
+                    <PasswordInput {...register("confirmPassword")} error={errors.confirmPassword?.message} label="Confirm password" placeholder="Repeat your password"/>
 
                 </div>
                     <PasswordRequirements  />
