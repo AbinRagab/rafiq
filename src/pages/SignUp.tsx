@@ -102,7 +102,10 @@ export default function SignUp () {
                     <PasswordRequirements  password = {password} />
                     
                     <AuthButton disabled = {isSubmitting}>
-                        Sign Up
+                        {isSubmitting? <span className="w-full flex items-center justify-center">
+                            <span className="h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent" />
+                            </span> :'Sign Up'}
+                        
                     </AuthButton>
                 </form>
                 <p className="text-body-sm mt-4 text-slate-mid">
