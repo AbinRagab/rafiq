@@ -3,14 +3,32 @@ import AuthLayout from "../components/auth/AuthLayout";
 import InputField from "../components/auth/InputField";
 import PasswordInput from "../components/auth/PasswordInput";
 import AuthButton from "../components/auth/AuthButton";
+import { useForm } from "react-hook-form";
+import { type signInFormData, signInSchema } from "../schemas/SignInSchema";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 
 
 export default function Login() {
 
+    const {
+        register,
+        handleSubmit,
+        formState: {errors, isSubmitting}
+    } = useForm<signInFormData>({
+        resolver: zodResolver(signInSchema)
+    })
 
 
-    
+
+    const onSubmit = ()=>{
+            try {
+                
+            } catch (error) {
+                
+            }
+    }
+
     return (
     <AuthLayout>
 <div className="w-full
@@ -18,11 +36,11 @@ export default function Login() {
                 <h2 className="text-title-card text-slate-dark">Welcome Back</h2>
                 <p className="text-body-sm mt-2 text-slate-mid">Please enter your details to access your workspace</p>
            
-                <form className="w-full mt-8">
+                <form className="w-full mt-8" onSubmit={handleSubmit(onSubmit)}>
 
 
-                        <InputField label="Email" id="Email" placeholder="yourname@company.com"/>
-                        <PasswordInput label="Password" id="Password" placeholder="Enter your password" />
+                        <InputField {...register('email')} error={errors.email?.message} label="Email" id="Email" placeholder="yourname@company.com"/>
+                        <PasswordInput {...register('password')} error={errors.password?.message} label="Password" id="Password" placeholder="Enter your password" />
 
 
                 <div className="my-8 flex items-center justify-between ">
@@ -43,10 +61,11 @@ export default function Login() {
                 </div>
 
 
-                <AuthButton>
+                <AuthButton disabled= {isSubmitting}>
 
-                Log In
-                    
+                {isSubmitting? <span className="w-full flex items-center justify-center">
+                            <span className="h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent" />
+                            </span> :'Sign Up'}
                 </AuthButton>
                 </form>
                 <p className="text-body-sm mt-4 text-slate-mid">
