@@ -22,7 +22,7 @@ export default function SignUp () {
         register,
         handleSubmit,
         watch,
-        formState: {errors},
+        formState: {errors, isSubmitting},
     } = useForm<signUpFormData>({
         resolver: zodResolver(signUpSchema),
     });
@@ -51,20 +51,23 @@ export default function SignUp () {
                 
 
             }) 
-            if(response.ok === true){
-                toast.success('Account created successfully!');
-                navigate('/project');
-            }
-
-            if(response.ok === false){
-            toast.error('Error in Sign Up');
-
-            }
-            console.log(response);
+            const result = await response.json()
+            console.log(result, "result");
             
+          if(result.error_code){
+            throw new Error(result.msg)
+            
+          }
+                
+             localStorage.setItem('access_token', result.access_token)
+             localStorage.setItem('refresh_token', result.refresh_token)
+            toast.success('Account created successfully!');
+            navigate('/project');
+           
+      
         } catch (error) {
-            toast.error(error);
-            console.log(error);
+            toast.error(error.message);
+            console.log(error, "from catch");
             
         }
         console.log(data);
@@ -98,7 +101,7 @@ export default function SignUp () {
                 </div>
                     <PasswordRequirements  password = {password} />
                     
-                    <AuthButton>
+                    <AuthButton disabled = {isSubmitting}>
                         Sign Up
                     </AuthButton>
                 </form>

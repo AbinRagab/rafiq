@@ -14,7 +14,7 @@ export default function InputField({
   ...props
 }: InputFieldProps) {
   const hasError = Boolean(error);
-    console.log(error);
+    // console.log(error);
     
   return (
     <div className="w-full px-12 pb-4">
