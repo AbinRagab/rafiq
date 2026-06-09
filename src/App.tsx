@@ -3,6 +3,7 @@ import { Navigate, Route, Routes } from 'react-router-dom';
 import './App.css';
 import SignUp from './pages/SignUp';
 import Login from './pages/Login';
+import Project from './pages/Project';
 
 function App() {
 
@@ -13,7 +14,7 @@ function App() {
 
       <Route path='/sign-up' element= {<SignUp/>}/>
       <Route path='/login' element= {<Login/>}/>
-      <Route path='/project' element= {<Login/>}/>
+      <Route path='/project' element= {<Project/>}/>
 
 
       <Route path='*' element = {<Navigate to={'/sign-up'} replace />}/>

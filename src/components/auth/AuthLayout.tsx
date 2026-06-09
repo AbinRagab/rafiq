@@ -21,7 +21,7 @@ export default function AuthLayout ({children}:AuthLayoutProps) {
                     </div>
                 </header>
 {/* min-h-[calc(100vh-80)] */}
-                <main className="  flex items-center justify-center py-5 px-10">
+                <main className="  min-h-lvh flex items-center justify-center ">
 
                     {children}
                 </main>

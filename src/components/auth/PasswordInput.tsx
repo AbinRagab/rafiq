@@ -10,6 +10,7 @@ export default function PasswordInput({
   label,
   error,
   details,
+  id,
   className = '',
   ...props
 }: PasswordInputProps) {
@@ -22,6 +23,8 @@ export default function PasswordInput({
         className={`mb-2 block text-label-sm uppercase ${
           hasError ? 'text-error' : 'text-slate-mid'
         }`}
+        htmlFor={id}
+
       >
         {label}
       </label>
@@ -30,7 +33,12 @@ export default function PasswordInput({
         <input
           {...props}
           type={showPassword ? 'text' : 'password'}
-          className={`h-12 w-full rounded-sm px-4 py-3.5 pr-10 text-body-sm outline-none placeholder:text-slate-mid ${
+          // aria-label={
+          //   showPassword
+          //     ? 'Hide password'
+          //     : 'Show password'
+          // }
+          className={`h-12 w-full rounded-sm px-4 md:px-8 py-3.5 pr-10 text-body-sm outline-none placeholder:text-slate-mid ${
             hasError
               ? 'bg-background-error text-error'
               : 'bg-surface-highest text-slate-mid'

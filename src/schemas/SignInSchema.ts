@@ -4,6 +4,7 @@ import { emailReg, passwordreg } from "./SignUpSchema";
 export const signInSchema = z.object({
     email: emailReg,
     password: passwordreg,
+    rememberMe: z.boolean().optional(),
 })
 
 

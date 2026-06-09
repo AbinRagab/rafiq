@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import AuthLayout from "../components/auth/AuthLayout";
 import InputField from "../components/auth/InputField";
 import PasswordInput from "../components/auth/PasswordInput";
@@ -6,10 +6,12 @@ import AuthButton from "../components/auth/AuthButton";
 import { useForm } from "react-hook-form";
 import { type signInFormData, signInSchema } from "../schemas/SignInSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { toast } from "sonner";
 
 
 
 export default function Login() {
+    const navigate = useNavigate()
 
     const {
         register,
@@ -21,11 +23,52 @@ export default function Login() {
 
 
 
-    const onSubmit = ()=>{
+    const onSubmit = async (data:signInFormData)=>{
             try {
-                
+             const response =  await fetch(`${import.meta.env.VITE_SUPABASE_URL}/auth/v1/token?grant_type=password`,{
+                method: 'POST',
+                headers:{
+                    'Content-Type': 'application/json',
+                    'apikey': import.meta.env.VITE_SUPABASE_API_KEY
+                },
+                body:JSON.stringify({
+                    email: data.email,
+                    password: data.password
+                })
+             })
+   
+             const result = await response.json()
+             console.log(result, "result");
+             console.log(data.rememberMe);
+             
+             if(result.error_code){
+                throw new Error(result.msg)
+             }
+
+            
+             
+
+            toast.success('Log In Success')
+            if (data.rememberMe) {
+                localStorage.setItem(
+                  'access_token',
+                  result.access_token
+                );
+
+                localStorage.setItem('refresh_token',result.refresh_token)
+              } else {
+                sessionStorage.setItem(
+                  'access_token',
+                  result.access_token
+                );
+
+                sessionStorage.setItem('refresh_token',result.refresh_token)
+              }
+            navigate('/project')
+             
             } catch (error) {
-                
+                console.log(error);
+                toast.error(error.message)
             }
     }
 
@@ -46,7 +89,8 @@ export default function Login() {
                 <div className="my-8 flex items-center justify-between ">
                         <span className="flex items-center justify-center gap-2">
                             <span >
-                            <input type="checkbox" className="w-4 h-4  border-2 border-slate-mid
+                            <input {...register('rememberMe')}   type="checkbox"
+ className="w-4 h-4  border-2 border-slate-mid
                                     checked:bg-primary
                                     checked:border-primary" />
                             </span>

@@ -59,9 +59,11 @@ export default function SignUp () {
             
           }
                 
-             localStorage.setItem('access_token', result.access_token)
-             localStorage.setItem('refresh_token', result.refresh_token)
-            toast.success('Account created successfully!');
+             sessionStorage.setItem('access_token', result.access_token)
+             sessionStorage.setItem('refresh_token', result.refresh_token)
+           
+           
+             toast.success('Account created successfully!');
             navigate('/project');
            
       
