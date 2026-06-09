@@ -52,9 +52,11 @@ export default function ForgotPassword() {
     const onSubmit = async (data:forgotPasswordFormData)=>{
         if(trials >= maxTrials) return
 
+        const redirectTo = 'http://localhost:5173/reset-password';
+
         try {
             setLoading(true)
-            const response = await fetch(`${import.meta.env.VITE_SUPABASE_URL}/auth/v1/recover`,{
+            const response = await fetch(`${import.meta.env.VITE_SUPABASE_URL}/auth/v1/recover?redirect_to=${redirectTo}`,{
                 method: 'POST',
                 headers: {
                     'apikey': import.meta.env.VITE_SUPABASE_API_KEY,
