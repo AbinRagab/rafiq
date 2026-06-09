@@ -13,6 +13,8 @@
   --color-slate-mid: #4F5F7B;
   --color-slate-light: #C3C6D6;
 
+  --color-surface-low-light: rgba(241, 243, 255, 0.5);
+
 
   /*button gradiant*/
   --color-button-dark: #003D9B;
@@ -50,6 +52,13 @@
   --text-title-md--letter-spacing: 0px;
   --text-title-md--font-weight: 500;
 
+
+      /* TITLE-MD */
+      --text-title-xmd: 13px;
+      --text-title-xmd--line-height: 19.5px;
+      --text-title-xmd--letter-spacing: 0px;
+      --text-title-xmd--font-weight: 400;
+    
       /* TITLE-SM */
       --text-title-sm: 11px;
       --text-title-sm--line-height: 16.5px;
@@ -63,6 +72,7 @@
       --text-button-sm--letter-spacing: 0px;
       --text-button-sm--font-weight: 600;
     
+
       /* TITLE-xSM */
       --text-title-xsm: 11px;
       --text-title-xsm--line-height: 16.5px;
