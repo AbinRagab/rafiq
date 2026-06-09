@@ -21,6 +21,12 @@
   --color-success: #4ADE80;
   --color-error: #DC2626;
   --color-warning: #F59E0B;
+  --color-success-light: rgba(130, 249, 190, 0.2);
+  --color-success-dark: #005235;
+
+
+
+  --color-button-timer: #737685;
 
 /* Typography */
   --font-sans: "Inter", sans-serif;

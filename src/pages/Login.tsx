@@ -99,7 +99,7 @@ export default function Login() {
                             </span>
                         <span>
                         
-                        <Link className="text-primary font-semibold hover: text-bg-primary"  to= {'/login'} >Forgot Password?</Link>
+                        <Link className="text-primary font-semibold hover: text-bg-primary"  to= {'/forgot-password'} >Forgot Password?</Link>
 
                         </span>
                 </div>
