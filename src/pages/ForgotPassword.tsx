@@ -1,20 +1,44 @@
-import { Link } from "react-router-dom";
+import { data, Link } from "react-router-dom";
 import AuthButton from "../components/auth/AuthButton";
 import AuthLayout from "../components/auth/AuthLayout";
 import InputField from "../components/auth/InputField";
+import { forgotPasswordSchema, type forgotPasswordFormData } from "../schemas/ForgotPasswordSchema";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
 
 export default function ForgotPassword() {
+  
+  
+    const {
+        register,
+        handleSubmit,
+        formState: {errors, isSubmitting}
+    } = useForm<forgotPasswordFormData>({
+        resolver: zodResolver(forgotPasswordSchema)
+    })
+
+
+
+    const onSubmit = (data:forgotPasswordFormData)=>{
+        
+    }
+
     return (<AuthLayout>
        
         <div className="w-full max-w-[448px] bg-white px-12 py-12 rounded-l-lg shadow-card flex flex-col items-center justify-center">
-       <div className="w-full"><h2 className="text-title-card text-slate-dark">Forgot password?</h2>
+       <div className="w-full">
+        <h2 className="text-title-card text-slate-dark">Forgot password?</h2>
                 <p className="text-body-sm mt-2 text-slate-mid">No worries, we'll send you reset instructions.</p>
            </div>
-        <form className="w-full mt-8" >
 
-                <InputField label="Email address" placeholder="Enter your email"/>
-                <AuthButton>
-                Send Reset Link
+        <form className="w-full mt-8" onSubmit={handleSubmit(onSubmit)}>
+
+                <InputField label="Email address" {...register('email')} error={errors.email?.message} placeholder="Enter your email"/>
+                <AuthButton disabled= {isSubmitting}>
+                    {isSubmitting? <span className="w-full flex items-center justify-center">
+                            <span className="h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent" />
+                            </span> :'Send Reset Link'}
+                
                 </AuthButton>
 
 
