@@ -80,7 +80,7 @@ export default function SignUp () {
     //     toast.error('Please fix the form errors.');
     //   };
 
-      
+         
       const password = watch('password', '')
     return (  <>
         <AuthLayout>
