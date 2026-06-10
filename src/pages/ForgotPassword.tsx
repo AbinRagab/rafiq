@@ -52,7 +52,7 @@ export default function ForgotPassword() {
     const onSubmit = async (data:forgotPasswordFormData)=>{
         if(trials >= maxTrials) return
 
-        const redirectTo = 'http://localhost:5173/reset-password';
+        const redirectTo = 'http://localhost:3000/reset-password';
 
         try {
             setLoading(true)
@@ -88,7 +88,6 @@ export default function ForgotPassword() {
             setLoading(false)
         }
     }
-
     return (<AuthLayout>
        
         <div className="w-full max-w-[448px] bg-white px-12 py-12 rounded-l-lg shadow-card flex flex-col items-center justify-center">

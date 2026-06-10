@@ -1,9 +1,70 @@
 import AuthLayout from "../components/auth/AuthLayout";
 import PasswordInput from './../components/auth/PasswordInput';
 import AuthButton from './../components/auth/AuthButton';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import { resetPasswordSchema, type resrtPasswordFormData } from "../schemas/ResetPasswordSchema";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { toast } from "sonner";
 
 export default function ResetPassword() {
+
+    const hashParams = new URLSearchParams(window.location.hash.replace('#', ''));
+    const accessToken = hashParams.get('access_token');
+    const type = hashParams.get('type');
+  
+    console.log(accessToken, 'token');
+  
+    if (type !== 'recovery' || !accessToken) {
+      return (
+        <AuthLayout>
+          <p className="text-error">Invalid or expired reset link.</p>
+        </AuthLayout>
+      );
+    }
+    
+    const {
+        register,
+        handleSubmit,
+
+        formState: {errors, isSubmitting},
+    } = useForm<resrtPasswordFormData>({
+        resolver: zodResolver(resetPasswordSchema)
+    });
+
+    
+const navigate = useNavigate()
+    const onSubmit = async (data:resrtPasswordFormData)=>{
+        try {
+            const response = await fetch(`${import.meta.env.VITE_SUPABASE_URL}/auth/v1/user`,{
+                method: 'PUT',
+                headers:{
+                    'Content-Type': 'application/json',
+                    'apikey': import.meta.env.VITE_SUPABASE_API_KEY,
+                    'Authorization': `Bearer ${accessToken}`,
+                },
+                body: JSON.stringify({
+                    password: data.password,
+                })
+            })
+
+
+            console.log(response);
+            const result = await response.json()
+
+            if(result.error_code){
+                throw new Error(result.msg)
+            }
+
+
+            toast.success('Your password has been updated successfully. You can now log in')
+            setTimeout(()=>{
+                navigate('/login')
+            },3000)
+        } catch (error) {
+            toast.error(error.message)
+        }
+    }    
     return (<AuthLayout>
         
 
@@ -15,10 +76,10 @@ export default function ResetPassword() {
                 access.</p>
                 </div>
            
-           <form className="w-full mt-8" >
+           <form className="w-full mt-8" onSubmit={handleSubmit(onSubmit)}>
 
-                <PasswordInput label="New Password" className="mb-4" />
-                <PasswordInput label="Confirm Password" />
+                <PasswordInput label="New Password" {...register('password')} error={errors.password?.message}className="mb-4" />
+                <PasswordInput label="Confirm Password"  {...register('confirmPassword')} error={errors.confirmPassword?.message}/>
 
 
                 <div className="bg-surface-low-light text-title-xmd rounded-md p-6  my-5">
@@ -54,8 +115,12 @@ export default function ResetPassword() {
 
                     </div>
                 </div>
-                <AuthButton>
-                Update Password
+                <AuthButton>{
+                    isSubmitting?<span className="w-full flex items-center justify-center">
+                    <span className="h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent" />
+                    </span> :'Update Password'
+                }
+               
                 </AuthButton>
            </form>
            <Link className="text-primary text-body-sm mt-3" to={'/login'}>Back to sign in</Link>

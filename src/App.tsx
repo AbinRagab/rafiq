@@ -6,7 +6,7 @@ import Login from './pages/Login';
 import Project from './pages/Project';
 import ForgotPassword from './pages/ForgotPassword';
 import ResetPassword from './pages/ResetPassword';
-import { useEffect } from 'react';
+// import { useEffect } from 'react';
 
 
 
@@ -14,30 +14,30 @@ import { useEffect } from 'react';
 function App() {
 
 
-  const navigate = useNavigate()
+  // const navigate = useNavigate()
 
 
-  useEffect(() => {
-    const hash = window.location.hash;
+  // useEffect(() => {
+  //   const hash = window.location.hash;
   
-    console.log(hash, 'hash');
+  //   console.log(hash, 'hash');
   
-    if (!hash) return;
+  //   if (!hash) return;
   
-    const params = new URLSearchParams(hash.replace('#', ''));
+  //   const params = new URLSearchParams(hash.replace('#', ''));
   
-    console.log(params);
+  //   console.log(params);
     
-    const type = params.get('type');
-    const accessToken = params.get('access_token');
-    console.log(type, accessToken);
+  //   const type = params.get('type');
+  //   const accessToken = params.get('access_token');
+  //   console.log(type, accessToken);
   
-    if (type === 'recovery' && accessToken) {
-      navigate(`/reset-password?access_token=${encodeURIComponent(accessToken)}`, {
-        replace: true,
-      });
-    }
-  }, [navigate]);
+  //   if (type === 'recovery' && accessToken) {
+  //     navigate(`/reset-password?access_token=${encodeURIComponent(accessToken)}`, {
+  //       replace: true,
+  //     });
+  //   }
+  // }, [navigate]);
 
 
   return (

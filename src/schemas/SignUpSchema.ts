@@ -21,6 +21,10 @@ export const passwordreg = z
   'Password must contain at least one special character'
 )
 
+export const confirmPasswordReg= z
+.string()
+.min(1, 'Confirm password is required')
+
 export const signUpSchema = z.object({
     name: z
     .string()
@@ -38,9 +42,7 @@ export const signUpSchema = z.object({
     password: passwordreg,
 
 
-    confirmPassword: z
-    .string()
-    .min(1, 'Confirm password is required'),
+    confirmPassword: confirmPasswordReg,
 })
 .refine((data)=> data.password === data.confirmPassword ,{
     message: 'Passwords do not match',
