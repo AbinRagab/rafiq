@@ -63,14 +63,18 @@ export default function Sidebar() {
         key={item.path}
         to={item.path}
         className={({ isActive }) => {
-          return `flex items-center gap-3 rounded-sm text-body-md my-1 font-medium leading-5 px-4 py-2.5 ${
+          return `flex items-center   gap-3 rounded-sm text-body-md my-1 font-medium leading-5 px-4 py-2.5 ${
             isActive
               ? 'bg-white text-primary-container'
-              : 'text-slate-d px-0'
-          } ${collapsed ? 'justify-center px-0' : ''}`;
+              : 'text-slate-d'
+          } 
+          ${      collapsed ? 'justify-center px-0' : 'px-4' }
+          `;
         }}
       >
-        {item.icon}
+<span className="flex items-center justify-center">
+    {item.icon}
+  </span>
 
         {!collapsed && <span>{item.title}</span>}
       </NavLink>
@@ -79,5 +83,18 @@ export default function Sidebar() {
         </nav>
       
 
+      <div className="p-4 border-t-1 border-black/10 mt-auto">
+            <button className={` flex gap-3 text-body-md my-1 font-medium leading-5 px-4 py-2.5 text-slate-dark`} onClick={()=>{
+                setCollapsed(!collapsed)
+            }}>
+                <span className={`transition ${collapsed ? 'rotate-180' : ''}`}>{collapse}</span>
+                {collapsed?"":"Collapse"}
+            </button>
+
+            <button className="flex gap-3 text-body-md my-1 font-medium leading-5 px-4 py-2.5 text-logout">
+            {logout}
+            {collapsed?'':"Logout"}
+            </button>
+      </div>
     </aside>)
 }
