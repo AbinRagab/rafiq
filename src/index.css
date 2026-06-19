@@ -13,6 +13,8 @@
   --color-slate-mid: #4F5F7B;
   --color-slate-light: #C3C6D6;
 
+  --color-layout-bg:#F9F9FF;
+
   --color-surface-low-light: rgba(241, 243, 255, 0.5);
 
 
@@ -26,7 +28,7 @@
   --color-success-light: rgba(130, 249, 190, 0.2);
   --color-success-dark: #005235;
 
-
+  --color-logout: #BA1A1A;
 
   --color-button-timer: #737685;
 

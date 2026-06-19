@@ -34,67 +34,102 @@ const logout = <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns
 </svg>
 
 
-
 const navItems = [
-    {title: 'Projects',path:'/',icon:folder},
-    {title: 'Project Epics',path:'/epics',icon:epics},
-    {title: 'Project Tasks',path:'/tasks',icon:task},
-    {title: 'Project Members',path:'/members',icon:members},
-    {title: 'Project Details',path:'/details',icon:dtails}
-]
+  { title: 'Projects', path: '/', icon: folder },
+  { title: 'Project Epics', path: '/epics', icon: epics },
+  { title: 'Project Tasks', path: '/tasks', icon: task },
+  { title: 'Project Members', path: '/members', icon: members },
+  { title: 'Project Details', path: '/details', icon: dtails },
+];
 
-export default function Sidebar() {
+type SidebarProps = {
+  mobileOpen: boolean;
+  onCloseMobile: () => void;
+};
 
-    
-   const [collapsed, setCollapsed] = useState(false)
-    return (<aside className={`hidden md:flex h-screen bg-surface-low
-    flex-col 
-    ${collapsed? 'w-[72px]':'w-[256px]'}
-    `}>
-       {/* logo */}
+export default function Sidebar({
+  mobileOpen,
+  onCloseMobile,
+}: SidebarProps) {
+  const [collapsed, setCollapsed] = useState(false);
+
+  return (
+    <>
+      {mobileOpen && (
+        <div
+          className="fixed inset-0 bg-black/40 z-40 md:hidden"
+          onClick={onCloseMobile}
+        />
+      )}
+
+      <aside
+        className={`
+          fixed md:static top-0 left-0 z-50 h-screen bg-surface-low
+          flex flex-col transition-all duration-300
+          ${collapsed ? 'md:w-[72px]' : 'md:w-[256px]'}
+          w-[256px]
+          ${mobileOpen
+            ? "translate-x-0 pointer-events-auto"
+            : "-translate-x-full pointer-events-none md:translate-x-0 md:pointer-events-auto"}       `}
+      >
         <div>
-            <Logo collapsed={collapsed} />
+          <Logo collapsed={collapsed} />
         </div>
 
-        <nav className="p-4">
-        {navItems.map((item) => {
-    return (
-      <NavLink
-        key={item.path}
-        to={item.path}
-        className={({ isActive }) => {
-          return `flex items-center   gap-3 rounded-sm text-body-md my-1 font-medium leading-5 px-4 py-2.5 ${
-            isActive
-              ? 'bg-white text-primary-container'
-              : 'text-slate-d'
-          } 
-          ${      collapsed ? 'justify-center px-0' : 'px-4' }
-          `;
-        }}
-      >
-<span className="flex items-center justify-center">
-    {item.icon}
-  </span>
+        <nav className="flex-1 p-4">
+          {navItems.map((item) => (
+            <NavLink
+              key={item.path}
+              to={item.path}
+              onClick={onCloseMobile}
+              className={({ isActive }) =>
+                `flex items-center gap-3 rounded-sm text-body-md my-1 font-medium leading-5 py-2.5 ${
+                  collapsed ? 'md:justify-center md:px-0 px-4' : 'px-4'
+                } ${
+                  isActive
+                    ? 'bg-white text-primary-container'
+                    : 'text-slate-d'
+                }`
+              }
+            >
+              <span className="shrink-0 flex items-center justify-center">
+                {item.icon}
+              </span>
 
-        {!collapsed && <span>{item.title}</span>}
-      </NavLink>
-    );
-  })}
+              {!collapsed && <span>{item.title}</span>}
+            </NavLink>
+          ))}
         </nav>
-      
 
-      <div className="p-4 border-t-1 border-black/10 mt-auto">
-            <button className={` flex gap-3 text-body-md my-1 font-medium leading-5 px-4 py-2.5 text-slate-dark`} onClick={()=>{
-                setCollapsed(!collapsed)
-            }}>
-                <span className={`transition ${collapsed ? 'rotate-180' : ''}`}>{collapse}</span>
-                {collapsed?"":"Collapse"}
-            </button>
+        <div className="p-4 border-t border-black/10 mt-auto">
+          <button
+            className={`hidden md:flex items-center gap-3 text-body-md my-1 font-medium leading-5 py-2.5 text-slate-dark w-full ${
+              collapsed ? 'justify-center px-0' : 'px-4'
+            }`}
+            onClick={() => setCollapsed(!collapsed)}
+          >
+            <span
+              className={`shrink-0 flex transition ${
+                collapsed ? 'rotate-180' : ''
+              }`}
+            >
+              {collapse}
+            </span>
 
-            <button className="flex gap-3 text-body-md my-1 font-medium leading-5 px-4 py-2.5 text-logout">
-            {logout}
-            {collapsed?'':"Logout"}
-            </button>
-      </div>
-    </aside>)
+            {!collapsed && <span>Collapse</span>}
+          </button>
+
+          <button
+            className={`flex items-center gap-3 text-body-md my-1 font-medium leading-5 py-2.5 text-logout w-full ${
+              collapsed ? 'md:justify-center md:px-0 px-4' : 'px-4'
+            }`}
+          >
+            <span className="shrink-0 flex">{logout}</span>
+
+            {!collapsed && <span>Logout</span>}
+          </button>
+        </div>
+      </aside>
+    </>
+  );
 }
